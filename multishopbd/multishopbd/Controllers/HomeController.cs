@@ -1,4 +1,5 @@
-﻿using System;
+﻿using multishopbd.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace multishopbd.Controllers
 {
     public class HomeController : Controller
     {
+        private MShopBdContext db = new MShopBdContext();
         public ActionResult Index()
         {
             return View();
@@ -25,6 +27,14 @@ namespace multishopbd.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        public ActionResult Search(string q)
+        {
+            var categories = db.Categories
+            .Where(a => a.CategoryName.Contains(q))
+            .Take(10);
+            return View(categories);
         }
     }
 }
