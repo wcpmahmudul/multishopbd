@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using multishopbd.Models;
+using System.Web.Security;
 
 namespace multishopbd.Controllers
 {
@@ -317,6 +318,11 @@ namespace multishopbd.Controllers
                 UserManager = null;
             }
             base.Dispose(disposing);
+        }
+        public JsonResult CheckUserName(string username)
+        {
+            var result = Membership.FindUsersByName(username).Count == 0;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         #region Helpers

@@ -24,10 +24,11 @@
         </div>
     </div>
 </div>
-<form action="/Home/Search" method="get">
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
     <input type="text" name="q" />
     <input type="submit" value="Search" />
-</form>
+}
 
 <div class="btn-group">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
