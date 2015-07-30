@@ -46,11 +46,12 @@ namespace multishopbd.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include="CategoryId,CategoryName,ImageName")] Category category)
         {
             if (ModelState.IsValid)
             {
+                category.ImageName = Microsoft.Security.Application.Sanitizer.GetSafeHtmlFragment(category.ImageName);
                 db.Categories.Add(category);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -60,6 +61,7 @@ namespace multishopbd.Controllers
         }
 
         // GET: /Category/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
