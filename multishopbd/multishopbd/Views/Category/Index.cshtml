@@ -3,6 +3,14 @@
 @{
     ViewBag.Title = "Index";
 }
+<style type="text/css">
+     #content {
+         font-family: 'Lato', sans-serif;
+         text-align:justify;
+         font-size:14px;
+       
+    }
+</style>
 
 <h2>Index</h2>
 
@@ -20,20 +28,34 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.Raw(item.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.Raw(item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section Scripts{
+
+    <script type="text/javascript">
+    $(function()
+    {
+        $("#CategoryName").mouseover(function () {
+            curSize= parseInt($('#content').css('font-size')) + 2;
+            $(this).css('font-size', curSize);
+        });
+    });
+    </script>
+}

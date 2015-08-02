@@ -15,6 +15,19 @@ namespace multishopbd.Controllers
     {
         private MShopBdContext db = new MShopBdContext();
 
+
+        public ActionResult DailyDeal()
+        {
+            var product = GetDailyDeal();
+            return PartialView("_DailyDeal", product);
+        }
+
+        private Product GetDailyDeal()
+        {
+            var product = db.Products.OrderBy(a => System.Guid.NewGuid()).First();
+            product.RegularPrice *= 0.5m;
+            return product;
+        }
         // GET: /Product/
         public ActionResult Index()
         {
@@ -49,7 +62,7 @@ namespace multishopbd.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ProductId,ProductName,ProductSummery,ProductDetails,RegularPrice,DiscountPrice,SubCategoryId")] Product product)
+        public ActionResult Create([Bind(Include = "ProductId,ProductName,ProductSummery,ProductDetails,RegularPrice,DiscountPrice,SubCategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
@@ -83,7 +96,7 @@ namespace multishopbd.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ProductId,ProductName,ProductSummery,ProductDetails,RegularPrice,DiscountPrice,SubCategoryId")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,ProductSummery,ProductDetails,RegularPrice,DiscountPrice,SubCategoryId")] Product product)
         {
             if (ModelState.IsValid)
             {
